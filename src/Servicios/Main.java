@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Nodo raiz = null;
-		//GrafoDirigido<Estacion> grafoEstaciones = new GrafoDirigido<>();
+		GrafoDirigido<String> grafoEstaciones = new GrafoDirigido<>();
 		menu();
 	}
 	
@@ -29,7 +29,7 @@ public class Main {
 		
 		switch(indice) {
 		case 1: {
-			lecturaInformacion(grafoEstaciones)
+			lecturaInformacion()
 			System.out.println("elegi la 1");
 			break;
 		}
@@ -49,7 +49,7 @@ public class Main {
 	}
 	
 	public static void lecturaInformacion() {
-		String csvFile = './datasets/dataset1.csv';
+		//String csvFile = './datasets/dataset1.csv'; 
 		String line = "";
 		String split = ";";
 		
