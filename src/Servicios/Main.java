@@ -60,7 +60,7 @@ public class Main {
 			while((line = br.readLine() != null)) {
 				String[] elementos = line.split(split);
 				if(elementos.length > 0) {
-					 estacion = new (elementos[0], elementos[1], Iteger.parseInt(elementos[2]));				
+					//agregar a estructura
 				}
 			}
 		}
