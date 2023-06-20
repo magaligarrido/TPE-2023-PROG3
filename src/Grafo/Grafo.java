@@ -5,7 +5,7 @@ import java.util.Iterator;
 public interface Grafo<T> {
 
 	// Agrega una estación
-	public void agregarVertice(String estacionId);
+	public void agregarEstacion(String estacionId);
 
 	// Borra una estación
 	public void borrarVertice(String estacionId);

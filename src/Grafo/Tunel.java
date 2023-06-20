@@ -17,10 +17,10 @@ public class Tunel<T> {
 	}
 	
 	public String getEstacionDestino() {
-		return estacionDestino;
+		return this.estacionDestino;
 	}
 
 	public int getDistancia() {
-		return distancia;
+		return this.distancia;
 	}
 }

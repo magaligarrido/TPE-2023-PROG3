@@ -14,9 +14,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 	
 	@Override
-	public void agregarVertice(String estacionId) {
+	public void agregarEstacion(String estacionId) {
 		// Se agrega la estación solo si no existe la clave estacionId
-		this.estaciones.putIfAbsent(estacionId, new ArrayList<Tunel<T>>());				
+		this.estaciones.putIfAbsent(estacionId, new ArrayList<Tunel<T>>());	
+		
 	}
 
 	@Override
@@ -80,8 +81,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public boolean existeTunel(String estacionId1, String estacionId2) {
 		ArrayList<Tunel<T>> tuneles = this.estaciones.get(estacionId1);
 		if(tuneles != null) {
-			for (Tunel<T> arco : tuneles) {
-				if(arco.getEstacionDestino() == estacionId2) {
+			for (Tunel<T> tunel : tuneles) {			
+				if(tunel.getEstacionDestino().equals(estacionId2)) {
 					return true;
 				}
 			}
@@ -102,7 +103,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		ArrayList<Tunel<T>> tuneles = this.estaciones.get(estacionId1);
 		if (tuneles != null) {
 			for (Tunel<T> tunel : tuneles) {
-				if(tunel.getEstacionDestino() == estacionId2) {
+				if(tunel.getEstacionDestino().equals(estacionId2)) {
 					return tunel;
 				}
 			}		
