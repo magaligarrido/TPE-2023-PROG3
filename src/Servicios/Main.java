@@ -5,13 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Grafo.GrafoDirigido;
+import Grafo.GrafoNoDirigido;
 
 public class Main {
 
 	public static void main(String[] args) {
-		GrafoDirigido<String> grafoEstaciones = new GrafoDirigido<>();
-		menu(grafoEstaciones);			
+		GrafoNoDirigido<String> grafoEstaciones = new GrafoNoDirigido<>();
+		menu(grafoEstaciones);	
+		
 		
 		if(grafoEstaciones.cantidadEstaciones() > 0) {
 			//Solución del problema mediante greedy					
@@ -22,25 +23,34 @@ public class Main {
 		}
 	}
 	
-	public static void buscarSolucionGreedy(GrafoDirigido<String> grafoEstaciones) {
+	public static void buscarSolucionGreedy(GrafoNoDirigido<String> grafoEstaciones) {
+		Timer timer = new Timer();
+		timer.start();
+		
 		System.out.println("-------------");
 		System.out.println("Greedy");
-		
+		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
+			
 		System.out.println("las estaciones");
 		System.out.println("los kms");
 		System.out.println("X métrica\n");
 	}
 	
-	public static void buscarSolucionBacktracking(GrafoDirigido<String> grafoEstaciones) {
+	public static void buscarSolucionBacktracking(GrafoNoDirigido<String> grafoEstaciones) {
+		Timer timer = new Timer();
+		timer.start();
+		//Backtracking backtracking = new Backtracking(grafoEstaciones);
 		System.out.println("-------------");
 		System.out.println("Backtracking");
-		
+		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
+
 		System.out.println("las estaciones");
 		System.out.println("los kms");
 		System.out.println("X métrica\n");
+		
 	}
 	
-	public static void menu(GrafoDirigido<String> grafoEstaciones) {
+	public static void menu(GrafoNoDirigido<String> grafoEstaciones) {
 		System.out.println("Se debe cargar la información en la estructura.");
 		System.out.println(
 			"Elija una opción: \n" + 
@@ -73,7 +83,7 @@ public class Main {
 		}
 	}
 	
-	public static void solicitarArchivoPorConsola(GrafoDirigido<String> grafoEstaciones) {
+	public static void solicitarArchivoPorConsola(GrafoNoDirigido<String> grafoEstaciones) {
 		System.out.println("------------- \n" + 
 			"Elija un archivo para cargar la información: \n" +
 			"1 --> dataset1 \n" +
@@ -108,7 +118,7 @@ public class Main {
 		lecturaInformacion(csvFile, grafoEstaciones);
 	}
 	
-	public static void lecturaRutaPorConsola(GrafoDirigido<String> grafoEstaciones) {
+	public static void lecturaRutaPorConsola(GrafoNoDirigido<String> grafoEstaciones) {
 		System.out.println("------------- \n" + 
 		"Ingrese la ruta del archivo para cargar la información: ");
 		String entrada = "";
@@ -117,12 +127,12 @@ public class Main {
 		lecturaInformacion(entrada, grafoEstaciones);
 	}
 	
-	public static void lecturaArchivoDefinido(GrafoDirigido<String> grafoEstaciones) {		
+	public static void lecturaArchivoDefinido(GrafoNoDirigido<String> grafoEstaciones) {		
 		String csvFile = "./datasets/dataset1.txt"; 		
 		lecturaInformacion(csvFile, grafoEstaciones);		
 	}
 	
-	public static void lecturaInformacion(String csvFile, GrafoDirigido<String> grafoEstaciones) {
+	public static void lecturaInformacion(String csvFile, GrafoNoDirigido<String> grafoEstaciones) {
 		long startTime = System.currentTimeMillis();	
 		
 		CSVReader csvReader = new CSVReader(csvFile);

@@ -32,8 +32,8 @@ public class CSVReader {
 			// Se carga el grafo con los datos obtenidos
 			grafoEstaciones.agregarEstacion(origen);	
 			grafoEstaciones.agregarEstacion(destino);
-			grafoEstaciones.agregarTunel(origen, destino, etiqueta);			
-			
+			grafoEstaciones.agregarTunel(origen, destino, etiqueta);	
+		
 		}
 		
 	}

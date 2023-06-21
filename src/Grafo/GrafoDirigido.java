@@ -21,7 +21,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
-	public void borrarVertice(String estacionId) {	
+	public void borrarEstacion(String estacionId) {	
 		estaciones.forEach((k,v) -> {
 			this.borrarTunel(k, estacionId);
 		});	
@@ -31,7 +31,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public void agregarTunel(String estacionId1, String estacionId2, int distancia) {
 		// Para agregar un tunel tienen que existir las estaciones origen y destino.
-		if(this.contieneVertice(estacionId1) && this.contieneVertice(estacionId2)) {			
+		if(this.contieneEstacion(estacionId1) && this.contieneEstacion(estacionId2)) {			
 			// Reutilizamos obtenerArco() para evitar si no es necesario recorrer todos los arcos.
 			Tunel<T> tunel = obtenerTunel(estacionId1, estacionId2); 
 			if (tunel == null) { // Significa que aun no existe el arco
@@ -50,13 +50,24 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public void borrarTunel(String estacionId1, String estacionId2) {
 		// Si no existen las estaciones origen y destino, no existe el tunel.
-		if(this.contieneVertice(estacionId1) && this.contieneVertice(estacionId2)) {
-			ArrayList<Tunel<T>> tuneles = this.estaciones.get(estacionId1);
-			for(Tunel<T> tunel: tuneles) {
-				if(tunel.getEstacionDestino() == estacionId2) {
-					tuneles.remove(tunel);					
-				}
-			}
+		if(this.contieneEstacion(estacionId1) && this.contieneEstacion(estacionId2)) {
+			
+			// Booleano para no recorrer todos los tuneles de la estacionId1 si no es necesario
+			boolean eliminado = false;
+			
+			Tunel<T> aux = null;
+			Iterator<Tunel<T>> tuneles = this.estaciones.get(estacionId1).iterator();
+			
+			while (tuneles.hasNext() && !eliminado) { 
+				aux = tuneles.next();			
+				if (aux.getEstacionDestino().equals(estacionId2)) {		
+					 this.estaciones.get(estacionId1).remove(aux);
+					 eliminado = true;
+					 cantidadDeTuneles--; 
+				 }
+				        
+			} 
+			
 		}
 		
 	}
@@ -66,7 +77,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	// * en el HashMap de estaciones.
 	//**
 	@Override
-	public boolean contieneVertice(String estacionId) {
+	public boolean contieneEstacion(String estacionId) {
 		return estaciones.containsKey(estacionId);
 	}
 	

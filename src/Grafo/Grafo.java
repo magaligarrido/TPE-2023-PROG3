@@ -8,7 +8,7 @@ public interface Grafo<T> {
 	public void agregarEstacion(String estacionId);
 
 	// Borra una estación
-	public void borrarVertice(String estacionId);
+	public void borrarEstacion(String estacionId);
 
 	// Agrega un tunel con cierta distancia, que conecta la estacionId1 con la estacionId2
 	public void agregarTunel(String estacionId1, String estacionId2, int distancia);
@@ -17,7 +17,7 @@ public interface Grafo<T> {
 	public void borrarTunel(String estacionId1, String estacionId2);
 
 	// Verifica si existe una estacion
-	public boolean contieneVertice(String verticeId);  
+	public boolean contieneEstacion(String estacionId);  
 
 	// Verifica si existe un tunel entre dos estaciones
 	public boolean existeTunel(String estacionId1, String estacionId2);
