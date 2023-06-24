@@ -16,14 +16,14 @@ public class Main {
 		
 		if(grafoEstaciones.cantidadEstaciones() > 0) {
 			//Solución del problema mediante greedy					
-			buscarSolucionGreedy(grafoEstaciones);
+		//	buscarSolucionGreedy(grafoEstaciones);
 			
 			//Solución del problema mediante backtracking
 			buscarSolucionBacktracking(grafoEstaciones);	
 		}
 	}
 	
-	public static void buscarSolucionGreedy(GrafoNoDirigido<String> grafoEstaciones) {
+	public static void buscarSolucionGreedy(GrafoNoDirigido<String> q) {
 		Timer timer = new Timer();
 		timer.start();
 		
@@ -39,15 +39,16 @@ public class Main {
 	public static void buscarSolucionBacktracking(GrafoNoDirigido<String> grafoEstaciones) {
 		Timer timer = new Timer();
 		timer.start();
-		//Backtracking backtracking = new Backtracking(grafoEstaciones);
+		Backtracking backtracking = new Backtracking();
+		Solucion sol = backtracking.back(grafoEstaciones);
+		
 		System.out.println("-------------");
 		System.out.println("Backtracking");
-		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
+	
 
-		System.out.println("las estaciones");
-		System.out.println("los kms");
-		System.out.println("X métrica\n");
-		
+		System.out.println(sol.getCamino());
+		System.out.println(sol.getDistancia() + " kms");
+		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");		
 	}
 	
 	public static void menu(GrafoNoDirigido<String> grafoEstaciones) {

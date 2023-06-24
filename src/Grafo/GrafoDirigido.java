@@ -167,7 +167,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 		return adyacentes.iterator();
 	}
-
+	
 	//** 
 	// * Complejidad: O(V) donde V son todos los vértices (estaciones)
 	// * del grafo que se recorren para obtener las listas de arcos que 
@@ -183,7 +183,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	//** 
-	// * Complejidad: O(V) donde V son todos los vértices (estaciones) del grafo
+	// * Complejidad: O(a) donde a son todos los tuneles
+	// * que parten de estacionId
 	// * 
 	@Override
 	public Iterator<Tunel<T>> obtenerTuneles(String estacionId) {
