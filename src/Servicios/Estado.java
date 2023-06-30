@@ -11,7 +11,7 @@ public class Estado {
 	private int distancia;
 	private ArrayList<Tunel<String>> caminoActual;
 	private HashMap<String, Boolean> estacionesVisitadas;
-	
+		
 	public Estado(String origen) {		
 		this.estacionInicial = origen;
 		this.estacionActual = origen;
@@ -19,6 +19,7 @@ public class Estado {
 		this.caminoActual = new ArrayList<>();	
 		this.estacionesVisitadas = new HashMap<>();
 	}
+	
 	
 	public String getEstacionInicial() {
 		return this.estacionInicial;
@@ -74,9 +75,9 @@ public class Estado {
 	}
 	
 	public boolean existeTunelEnCamino(Tunel<String> tunel) {
-		// Como el tunel puede estar en diferente direccion
+		// Como el tunel tiene doble direccion porque es un grafo no dirigido:
 		Tunel<String> tunelRedireccionado = new Tunel<String>(tunel.getEstacionDestino(), tunel.getEstacionOrigen(), tunel.getDistancia());
-		return (this.caminoActual.contains(tunel)) ||  (this.caminoActual.contains(tunelRedireccionado));
+		return (this.caminoActual.contains(tunel));
 	}
 	
 	public void quitarUltimoDelCamino() {

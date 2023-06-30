@@ -17,6 +17,11 @@ public class Solucion {
 		this.distancia = distancia;
 	}
 	
+	public void agregar(Tunel<String> tunel) {
+		this.camino.add(tunel);
+		this.distancia = this.distancia + tunel.getDistancia();
+	}
+	
 	public int getSize() {
 		return this.camino.size();
 	}

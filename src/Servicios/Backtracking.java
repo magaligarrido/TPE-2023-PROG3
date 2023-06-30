@@ -3,25 +3,33 @@ package Servicios;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Grafo.GrafoDirigido;
 import Grafo.GrafoNoDirigido;
 import Grafo.Tunel;
 
 public class Backtracking {
 	private Solucion mejorSolucion;
 	private ArrayList<String> estaciones;
+	private ArrayList<String> tuneles;
 	
 	/*
 	 * Estado:  
-	 * 		posicion: la estación en la que estamos parados
-	 * 		
-	 * 		distancia:¿
+	 * 		estacion actual
+	 * 		camino de tuneles
+	 * 		distancia del camino
+	 * 		estaciones visitadas									
 	 */ 
 	
 	/*
-	 *  Estado final: cuando no tengo más estaciones que recorrer 
-	 *                o mejorSolucion contiene los tuneles entre todas las estaciones
-	 * 	Estado solucion: cuando utilice todas las estaciones sin superar los metros base
-	 *  Solucion: arreglo con los pares de estaciones para hacer los tuneles
+	 *  Estado final:    cuando el camino contiene la cantidad de tuneles 
+	 *  			     que se necesitan para conectar todas las estaciones
+	 *  			     y cuando se visitaron todas las estaciones
+	 *  
+	 * 	Estado solucion: cuando se visitaron todas las estaciones para
+	 * 					 asegurarnos que van a estar todas conectadas. 
+	 * 
+	 *  Mejor solucion:  si aun no tengo solucion se guarda, si ya existe una 
+	 *  				 queda la que tenga menor distancia
 	 */
 	
 	public Solucion back(GrafoNoDirigido<String> grafo) {		
@@ -44,19 +52,24 @@ public class Backtracking {
 	public void back(GrafoNoDirigido<String> grafo, Estado estado) {
 					
 		//Si es estado final	
-		if(estado.getSize() == (estaciones.size()-1) && estado.estacionesVisitadasSize() == (estaciones.size())) {			
+		if(estado.getSize() == (estaciones.size()-1)) {			
 
-			// Si es la primera solución que encuentro o es mejor que la que tenia
-			if(this.mejorSolucion == null || this.mejorSolucion.getDistancia() > estado.getDistanciaCamino()) {
-				this.mejorSolucion = new Solucion(estado.getCamino(), estado.getDistanciaCamino());			
-			} 
+			// Si es solucion
+			if(estado.estacionesVisitadasSize() == (estaciones.size())) {
+				
+				// La guardo solo si es la primera que encuentro o es mejor que la que tenia
+				if(this.mejorSolucion == null || this.mejorSolucion.getDistancia() > estado.getDistanciaCamino()) {
+					this.mejorSolucion = new Solucion(estado.getCamino(), estado.getDistanciaCamino());	
+				} 
+			}
 			
 		} else {
 				Iterator<Tunel<String>> adyacentes = grafo.obtenerTuneles(estado.getEstacionActual());
 				while(adyacentes.hasNext()) {
-					Tunel<String> adyacente = adyacentes.next();					
-					// Si la estacion destino es diferente a la estacion inicial 				
-					if(!estado.existeTunelEnCamino(adyacente) && !estado.isVisitada(adyacente.getEstacionDestino()) && adyacente.getEstacionDestino() != estado.getEstacionInicial())  {
+					Tunel<String> adyacente = adyacentes.next();
+					
+					// Si la estacion destino es diferente a la estacion inicial y no fue visitada				
+					if(!estado.existeTunelEnCamino(adyacente) && !estado.isVisitada(adyacente.getEstacionDestino()))  {
 						estado.agregarAlCamino(adyacente);
 						estado.setEstacionActual(adyacente.getEstacionDestino());
 						estado.sumarDistancia(adyacente.getDistancia());
@@ -80,7 +93,7 @@ public class Backtracking {
 	
 	private boolean poda(Estado estado) {	
 		// Si ya tenia guardada una solucion para comparar y el costo del camino actual
-		// ya supera el costo de esa solucion encontrada .
+		// ya supera el costo de esa solucion encontrada poda.
 		return (this.mejorSolucion!= null && estado.getDistanciaCamino() > this.mejorSolucion.getDistancia());
 	}
 }
