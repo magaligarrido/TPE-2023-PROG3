@@ -24,7 +24,7 @@ public class ServicioCaminos {
 	private String origen;
 	private String destino;
 	private int lim;
-	private HashMap<String, Boolean> visitados;
+	private HashMap<Tunel<?>, Boolean> arcosVisitados;
 	private ArrayList<List<String>> camino;
 	
 	// Servicio caminos
@@ -33,16 +33,12 @@ public class ServicioCaminos {
 		this.origen = origen;
 		this.destino = destino;
 		this.lim = lim;
-		this.visitados = new HashMap<>();
+		this.arcosVisitados = new HashMap<>();
 		this.camino = new ArrayList<List<String>>();
 	}
 
 	public List<List<String>> caminos() {		
 		Iterator<String> it = this.grafo.obtenerVertices();
-		while (it.hasNext()) {
-			String verticeId = it.next();
-			visitados.put(verticeId, false);
-		}
 		
 		
 		if (this.lim > 0 && this.grafo != null) {
@@ -52,7 +48,7 @@ public class ServicioCaminos {
 	}
 	
 	private void caminosVisit(ArrayList<String> list, String verticeActual, int count) {
-		if (verticeActual == this.destino && count > 0) {
+		if (verticeActual.equals(this.destino) && count > 0) {
 			ArrayList<String> tmp = new ArrayList<>();
 			tmp.add(this.origen);
 			tmp.addAll(list);
@@ -60,16 +56,17 @@ public class ServicioCaminos {
 		} else {
 			for (Iterator<?> it = this.grafo.obtenerTuneles(verticeActual); it.hasNext();) {
 				Tunel<?> arcoActual = (Tunel<?>) it.next();
-				if (!visitados.get(arcoActual.getEstacionDestino()) ) {
-					visitados.put(arcoActual.getEstacionDestino(), true);
+				if (arcosVisitados.get(arcoActual) == null) {
+					arcosVisitados.put(arcoActual, true);
 					count += 1;
+				
 					if (count <= this.lim) {
 						String verticeAdyacente = arcoActual.getEstacionDestino();
 						list.add(verticeAdyacente);
 						this.caminosVisit(list, verticeAdyacente, count);
 						list.remove(verticeAdyacente);
 					}
-					visitados.replace(arcoActual.getEstacionDestino(), false);				
+					arcosVisitados.replace((Tunel<String>) arcoActual, false);				
 					count -= 1;
 				}
 			}

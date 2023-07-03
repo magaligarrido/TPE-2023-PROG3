@@ -263,4 +263,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				
 		return salida;
 	}
+	
+	public Iterator<Tunel<T>> obtenerTunelesOrdenadosIt(){
+		return obtenerTunelesOrdenados().iterator();
+	}
 }

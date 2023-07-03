@@ -92,7 +92,7 @@ public class Main {
 	}
 	
 	public static void menuParteUno(GrafoDirigido<String> grafo) {
-		String csvFile = "./datasets/dataset1.txt"; 		
+		String csvFile = "./datasets/datasetPrimeraParte.txt"; 		
 		lecturaInformacion(csvFile, grafo);			
 		
 		System.out.println("Cantidad de vertices: " + grafo.cantidadEstaciones());
@@ -120,7 +120,7 @@ public class Main {
 		imprimirRecorrido(recorridoDFS);
 		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
 
-		/// **** Recorridos BFS  **** ///	
+		/// **** Recorridos BFS **** ///	
 		timer.start();
 		
 		ServicioBFS servicioBFS = new ServicioBFS(grafo);
@@ -131,9 +131,15 @@ public class Main {
 		imprimirRecorrido(recorridoBFS);
 		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
 	
+		
+		/// **** Caminos **** ///	
+		timer.start();
+				
 		String origen = "E1";
-		String destino = "E4";
-		int limite = 2;
+		String destino = "E6";
+		int limite = 5;		
+		// Si se envia 3 de limite solo trae un camino con los datos que estan cargados.
+		//int limite = 3;
 		
 		ServicioCaminos servicioCaminos = new ServicioCaminos(grafo, origen, destino, limite);
 		List<List<String>> caminos = servicioCaminos.caminos();
@@ -142,7 +148,8 @@ public class Main {
 		for(List<String> camino: caminos) {
 			imprimirRecorrido(camino);
 		}
-		
+		System.out.println("Tiempo de ejecución: " + timer.stop() + " milisegundos");
+
 	}
 	
 	public static void menuParteDos(GrafoNoDirigido<String> grafoEstaciones) {
@@ -152,7 +159,7 @@ public class Main {
 			"Elija una opción: \n" + 
 			"1- Cargar información desde archivo definido en main. \n" +
 			"2- Ingresar ruta de archivo por consola. \n" + 
-			"3- Pasar mediante argumentos al programa ?"
+			"3- Pasar mediante argumentos al programa"
 		);
 		String entrada = "";
 		Scanner entradaScanner = new Scanner(System.in);

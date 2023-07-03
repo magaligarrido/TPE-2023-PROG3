@@ -74,9 +74,13 @@ public class Estado {
 		this.estacionActual = tunel.getEstacionDestino();
 	}
 	
-	public boolean existeTunelEnCamino(Tunel<String> tunel) {
-		// Como el tunel tiene doble direccion porque es un grafo no dirigido:
-		Tunel<String> tunelRedireccionado = new Tunel<String>(tunel.getEstacionDestino(), tunel.getEstacionOrigen(), tunel.getDistancia());
+	public boolean existeTunelEnCamino(Tunel<String> tunel) {				
+		if(!this.caminoActual.contains(tunel)) {
+			// Como el tunel tiene doble direccion porque es un grafo no dirigido:
+			Tunel<String> tunelRedireccionado = new Tunel<String>(tunel.getEstacionDestino(), tunel.getEstacionOrigen(), tunel.getDistancia());
+			return this.caminoActual.contains(tunelRedireccionado);
+		}
+		
 		return (this.caminoActual.contains(tunel));
 	}
 	
